@@ -61,11 +61,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.red,
         title: Text("Cocktail App"),
       ),
       body: _currentIndex == 0
@@ -79,6 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.deepOrangeAccent),
+            ),
             onPressed: () {
               String query = _searchController.text;
               if (query.isNotEmpty) {
@@ -98,18 +101,33 @@ class _MyHomePageState extends State<MyHomePage> {
                 final isFavorite = _isFavorite(cocktailName);
 
                 return Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10))
+
+
+                  )
+                  ,
+
                   child: ListTile(
-                    leading: Image.network(cocktail['strDrinkThumb']),
+                    style:  ListTileStyle.list,
+                    leading: Container(width: 50,height: 50,decoration:
+                    BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(cocktail['strDrinkThumb']),fit: BoxFit.cover,),shape: BoxShape.rectangle,borderRadius:
+                    BorderRadius.circular(10)
+                    ),),
                     title: Text(cocktailName),
                     subtitle: Text(cocktail['strCategory']),
                     trailing: IconButton(
                       icon: Icon(isFavorite ? Icons.star : Icons.star_border),
                       onPressed: () {
-                        _toggleFavorite(cocktailName);
+                        _toggleFavorite(cocktailName,)
+
+                        ;
                       },
                     ),
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CocktailDetailPage(cocktail["strIngredient1"],cocktail['strDrinkThumb'],cocktailName, cocktailDescription),));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CocktailDetailPage(cocktail["strIngredient1"],cocktail['strDrinkThumb'],cocktailName, cocktailDescription,),));
                     },
                   ),
                 );
